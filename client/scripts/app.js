@@ -1,15 +1,18 @@
 // YOUR CODE HERE:
 let app = {};
+app.recentId;
 app.server = 'http://parse.la.hackreactor.com/chatterbox/classes/messages'
 app.init = function() {
+  
 };
 app.messages = [];
 app.friendsList = [];
 
 app.renderMessage = function(message) {
-  $('#chats').prepend(`<p> <span class="username">${message.username}</span> : ${message.text} in  ${message.roomname} </p>`);
+  $('#chats').prepend(`<p> <span class="username">${message.username}</span>: ${message.text}</p>`);
   let current = $('.username')[0];
-  $(current).on('click', app.handleUsernameClick);
+  $(current).on('click', () => {
+    app.handleUsernameClick(message.username)});
 };
 
 app.clearMessages = function() {
@@ -20,9 +23,13 @@ app.renderRoom = function(room) {
   $('#roomSelect').prepend(`<p> ${room} </p>`);
 };
 
-app.handleUsernameClick = function() {
-  app.friendsList.push($($('.username')[0]).text());
-  console.log(`${$($('.username')[0]).text()} added.`)
+app.handleUsernameClick = function(name) {
+  if(app.friendsList.includes(name)) {
+    console.log(`${name} already added.`)
+  } else {
+    app.friendsList.push(name);
+    console.log(`${name} added.`)
+  }
 };
 
 
@@ -51,7 +58,6 @@ app.handleSubmit = function(e) {
     text: content,
     roomname: 'lobby'    
   }
-  console.log($('#message').val());
   app.send(message)
 };
 
@@ -65,8 +71,28 @@ app.fetch = function() {
       type: 'GET',
       contentType: 'application/json',
       success: (data) => {
-        app.renderMessage(data['results'][0]);
-        console.log(data['results'][0]['username'] + ' sent a message');
+        // if (!app.recentId) {
+        //   app.recentId = data['results'][9].objectId;
+        // }
+        //   // console.log(data['results'])
+        // for (let element of data['results']) {
+        //   if (element.objectId === app.recentId) {
+        //     break;
+        //   }
+        //   console.log(element);
+        //   if (element.text && element.username) app.renderMessage(element);
+        //   app.recentId = element.objectId;
+        //   console.log(element['username'] + ' sent a message');
+        // }
+        let recentMessage = data['results'][0]
+        if(app.recentId !== recentMessage.objectId) {
+          // if (app.messageChecker(data['results'][0]))
+          if (!!(recentMessage.text && recentMessage.username && !app.messageChecker(recentMessage))) {
+            app.renderMessage(recentMessage);
+          }
+          app.recentId = recentMessage.objectId;
+          console.log(recentMessage['username'] + ' sent a message');
+        }
       },
       error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -74,5 +100,9 @@ app.fetch = function() {
       }
   });
 };
+// return true if malicious code exists
+app.messageChecker = function (message) {
+  return JSON.stringify(message).includes('<script>');
+};
 
-// setInterval(app.fetch, 2000);
+setInterval(app.fetch, 100);

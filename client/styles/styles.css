@@ -6,20 +6,25 @@ body {
 }
 
 #main, #chats {
-    width: 500px;
+    width: 65%;
     margin: auto;
     text-align: left;
     background: white;
-    padding: 50px 60px;
+    padding: 2%;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
 
 #main h1 {
+    font-weight: normal;
     margin-top: 0;
     font-size: 35px;
     margin-bottom: 5px;
+    text-align: center;
     padding: 5px;
+    font-family: "Open Sans",sans-serif;
+    line-height: 1.5rem;
+    -webkit-font-smoothing: antialiased;
 }
 
 #main h1 span {
@@ -65,8 +70,9 @@ form input[type=text] {
     background-color: #eee;
 }
 
-.chat .username {
-    font-weight: 800;
+.username {
+    font-weight: bold;
+    color: #5284af;
 }
 
 .chat:hover {
@@ -88,3 +94,10 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+#roomSelect {
+    margin: 2% 0 0 45%;
+}
+
+form {
+    margin: 0 3% 0 5%;
+}

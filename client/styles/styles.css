@@ -51,6 +51,10 @@ body {
     line-height: 13px;
 }
 
+#main {
+    padding-bottom: 0%;
+}
+
 form {
     padding: 20px;
     padding-left: 0;
@@ -94,10 +98,30 @@ form input[type=text] {
     background-color: #0090da;
 }
 
-#roomSelect {
-    margin: 2% 0 0 45%;
+#roomSelect { 
+    margin: 10px auto; 
+    text-align: center;
 }
 
 form {
-    margin: 0 3% 0 5%;
+    margin: auto;
+}
+
+#messageSend {
+    text-align: center;
+    margin-bottom: 0; 
+}
+
+
+#friendsList {
+    text-align: center;
+    float: left;
+    width: 13%;
+    border: 2px solid rgb(17, 107, 143);
+    background-color: #7297aa;
+
+}
+
+.list {
+    border-bottom: 1px solid black;
 }

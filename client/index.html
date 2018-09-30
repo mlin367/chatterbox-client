@@ -23,23 +23,26 @@
     <script src="env/config.js"></script>
   </head>
   <body>
+    <div id="friendsList"><span class="list">Friends List</span> </div>
     <div id="main">
       <h1>chatterbox</h1>
       <div id="roomSelect">
-          Room: <select form='send' name="cars" class="selectDrop">
-              <option value="lobby">Lobby</option>
-            </select>
+          <label>Room:</label> 
+          <select form='send' name="rooms" id="selectDrop">
+            <option value='lobby' selected>lobby</option>  
+            <option value='createRoom'>Create Room</option>      
+          </select>
+      </div>
+      <img src="images/spiffygif_46x46.gif" align='right' style='display: none;'> 
+      <div id='messageSend'>
+        <form id='send' class='submit' method="post" value="formMessage">
+          <label>Message:</label> <input id="message" type="text" name="chat">            
+        </br></br><input type="submit" class="submit" value="Submit">
+        </form>
       </div>
       <!-- Your HTML goes here! -->
     </div>
     <div id="chats"></div>
-    <div id="sendMessage">
-      <form id='send' class='submit' method="post" value="formMessage">
-        <p>Message:</p> <input id="message" type="text" name="chat">
-        
-      </br></br><input type="submit" class="submit" value="Submit">
-      </form>
-    </div>
   </body>
   <script src="scripts/app.js"></script>
 </html>
